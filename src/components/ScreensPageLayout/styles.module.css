@@ -1,0 +1,10 @@
+.screens_page_layout {
+  height: 100%;
+  position: relative;
+}
+@media screen and (min-width: 1440px) {
+  .screens_page_layout {
+    height: unset;
+    flex-grow: 1;
+  }
+}
