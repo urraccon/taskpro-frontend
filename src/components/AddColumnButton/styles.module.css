@@ -1,0 +1,40 @@
+.add_card_btn {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 335px;
+  height: 56px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--main_text_color);
+  cursor: pointer;
+  background-color: var(--background_task_item);
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  transition: background-color 250ms linear;
+}
+
+.add_card_btn:hover {
+  background-color: var(--accent_hover)
+}
+
+.svg_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: var(--add_column_svg_bg);
+}
+
+.btn_plus_icon {
+  stroke: var(--add_column_svg);
+}
+@media screen and (max-width:375px) {
+.add_card_btn{width: 100%;}
+}
