@@ -1,0 +1,13 @@
+.home_page_wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--background_userdefault);
+  position: relative;
+}
+@media screen and (min-width:1440px) {
+  .home_page_wrapper {
+    display: flex;
+    position: static;
+  }
+}

@@ -9,6 +9,9 @@ import AuthPage from "../pages/AuthPage";
 import { selectIsRefreshing } from "../redux/auth/selectors";
 import { refreshUser } from "../redux/auth/operations";
 import Loader from "./Loader/Loader";
+
+import ThemeProvider from "../providers/themeProvider";
+
 import HomePage from "../pages/HomePage";
 
 const App = () => {
@@ -23,26 +26,32 @@ const App = () => {
     <Loader />
   ) : (
     <div>
-      {/** Content inside this div must be wrapped in the theme component */}
-      <Routes>
-        <Route path="/" element={<WelcomePage />} />
 
-        <Route
-          path="/auth/:id"
-          element={<PublicRoute redirectTo="/home" component={<AuthPage />} />}
-        />
+      {/* * Content inside this div must be wrapped in the theme component */}
+      <ThemeProvider>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
 
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute redirectTo="/auth/login" component={<HomePage />} />
-          }
-        >
-          <Route path=":boardId" />
-        </Route>
+          <Route
+            path="/auth/:id"
+            element={
+              <PublicRoute redirectTo="/home" component={<AuthPage />} />
+            }
+          />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute redirectTo="/auth/login" component={<HomePage />} />
+            }
+          >
+            <Route path=":boardId" />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </ThemeProvider>
+
     </div>
   );
 };
