@@ -1,10 +1,10 @@
-import BoardItem from './BoardItem';
-import { ListBoardStyle } from './ListBoards.styled';
-import { useSelector } from 'react-redux';
-import { selectedBoard } from '../../../redux/boards/selectors';
+import { selectFilteredBoardList } from "../../../redux/board/selectors";
+import BoardItem from "./BoardItem";
+import { ListBoardStyle } from "./ListBoards.styled";
+import { useSelector } from "react-redux";
 
 const ListBoards = ({ boards }) => {
-  const currentBoard = useSelector(selectedBoard);
+  const currentBoard = useSelector(selectFilteredBoardList);
 
   return (
     <ListBoardStyle>

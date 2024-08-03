@@ -1,6 +1,6 @@
 import { Radio } from "@mui/material";
 import { Icon, IconPath, Image } from "./BgRadio.styles";
-import Icons from "../../../assets/svgSprite/iconsSprite.svg";
+import Icons from "../../../../../assets/svgSprite/iconsSprite.svg";
 
 const radioStyle = {
   padding: 0,
