@@ -10,8 +10,9 @@ import {
 } from "./ListBoards.styled";
 
 import { useDispatch } from "react-redux";
-import { deleteBoard } from "../../../redux/boards/operationsBoards";
+
 import { Link, useNavigate } from "react-router-dom";
+import { removeBoard } from "../../../redux/board/operations/boardOperations";
 
 const BoardItem = ({ isActive, title, icon, id }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const BoardItem = ({ isActive, title, icon, id }) => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteBoard(id));
+    dispatch(removeBoard(id));
     setClick(true);
   };
 

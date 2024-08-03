@@ -1,11 +1,10 @@
-
 import React, { useEffect, useState } from "react";
-import { fetchAllBoard } from "../redux/boards/operationsBoards";
 import { useDispatch } from "react-redux";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HomePageWrapper from "../components/HomePageWrapper/HomePageWrapper";
 import ScreensPageLayout from "../components/ScreensPageLayout/ScreensPageLayout";
 import BackDropToSidebar from "../components/BackDropToSidebar/BackDropToSidebar";
+import { fetchBoardList } from "../redux/board/operations/boardOperations";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -16,7 +15,7 @@ const HomePage = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
   useEffect(() => {
-    dispatch(fetchAllBoard());
+    dispatch(fetchBoardList);
   }, [dispatch]);
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const HomePage = () => {
         {/** Add here ColumnList IOANA */}
       </ScreensPageLayout>
     </HomePageWrapper>
-
   );
 };
 

@@ -281,14 +281,6 @@ const boardSlice = createSlice({
   },
 });
 
-const boardReducer = boardSlice.reducer;
-const persistBoardConfig = {
-  key: "board",
-  storage,
-};
-
 export const { setSearchTerm } = boardSlice.actions;
-export const persistBoardReducer = persistReducer(
-  persistBoardConfig,
-  boardReducer
-);
+
+export default boardSlice.reducer;

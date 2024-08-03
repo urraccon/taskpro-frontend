@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Label } from "./BoardModal.styles";
 import { Field, Form, Formik } from "formik";
-import CustomField from "../../custom-field/CustomField";
-import CustomButton from "../../custom-button/CustonButton";
-import CustomModal from "../../custom-modal/CustomModal";
+import CustomField from "../common/custom-field/CustomField";
+import CustomButton from "../common/custom-button/CustonButton";
+import CustomModal from "../common/custom-modal/CustomModal";
 import CustomRadioGroup from "../../custom-radio-group/CustomRadioGroup";
 import BoardSchema from "./BoardSchema";
 import { useDispatch, useSelector } from "react-redux";

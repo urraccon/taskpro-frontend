@@ -1,19 +1,18 @@
-import LogoComponent from './LogoComponent/LogoComponent';
-import CreateNewBoard from './CreateBoardButton/CreateBoardButton';
-import CreateHelpButton from './HelpButton/HelpButton';
-import LogOut from './LogOut/LogOut';
-import ListBoards from './ListBoards/ListBoards';
-
+import LogoComponent from "./LogoComponent/LogoComponent";
+import CreateNewBoard from "./CreateBoardButton/CreateBoardButton";
+import CreateHelpButton from "./HelpButton/HelpButton";
+import LogOut from "./LogOut/LogOut";
+import ListBoards from "./ListBoards/ListBoards";
 import {
   StyledSidebar,
   SidebarContainer,
   SidebarMargin,
-} from './Sidebar.styled';
-import { useSelector } from 'react-redux';
-import { selectAllBoards } from '../../redux/boards/selectors';
+} from "./Sidebar.styled";
+import { useSelector } from "react-redux";
+import { selectBoardList } from "../../redux/board/selectors";
 
 const Sidebar = () => {
-  const boards = useSelector(selectAllBoards);
+  const boards = useSelector(selectBoardList);
 
   return (
     <StyledSidebar>
