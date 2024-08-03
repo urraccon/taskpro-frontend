@@ -1,6 +1,6 @@
 import { Radio } from "@mui/material";
 import { ActiveIcon, Icon, IconPath } from "./IconsRadio.styles";
-import icons from "../../../assets/svgSprite/iconsSprite.svg";
+import icons from "../../../../../assets/svgSprite/iconsSprite.svg";
 
 const icon = (option) => (
   <Icon>

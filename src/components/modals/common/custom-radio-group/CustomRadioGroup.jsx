@@ -2,8 +2,8 @@ import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { Field } from "formik";
 import { RadioGroup } from "formik-mui";
 import PropTypes from "prop-types";
-import IconsRadio from "../radios/icons-radio/IconsRadio";
-import BgRadio from "../radios/bg-radio/BgRadio";
+import IconsRadio from "../../board-modal/components/icons-radio/IconsRadio";
+import BgRadio from "../../board-modal/components/bg-radio/BgRadio";
 
 const ctrlStyle = {
   gap: "14px",

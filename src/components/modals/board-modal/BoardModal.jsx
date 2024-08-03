@@ -4,7 +4,7 @@ import { Field, Form, Formik } from "formik";
 import CustomField from "../common/custom-field/CustomField";
 import CustomButton from "../common/custom-button/CustonButton";
 import CustomModal from "../common/custom-modal/CustomModal";
-import CustomRadioGroup from "../../custom-radio-group/CustomRadioGroup";
+import CustomRadioGroup from "../common/custom-radio-group/CustomRadioGroup";
 import BoardSchema from "./BoardSchema";
 import { useDispatch, useSelector } from "react-redux";
 import {

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { IconContainer, IconPath, PlusIcon } from "./CustomButton.styles";
-import icons from "../../assets/svgSprite/iconsSprite.svg";
+import icons from "../../../../assets/svgSprite/iconsSprite.svg";
 import PropTypes from "prop-types";
 
 const bttnStyle = {
