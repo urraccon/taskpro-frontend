@@ -21,12 +21,10 @@ import {
   removeCard,
   updateCard,
 } from "./operations/cardOperations";
-import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
 
 const initialState = {
   list: [],
-  item: {},
+  current: {},
   columnList: [],
   column: {},
   cardList: [],
@@ -47,7 +45,7 @@ const fulfilledHandler = (state) => {
 
 const rejectedHandler = (state, action) => {
   state.status = "failed";
-  state.error = action.error.message;
+  state.error = action.payload.message;
 };
 
 const boardSlice = createSlice({
@@ -67,13 +65,14 @@ const boardSlice = createSlice({
       .addCase(fetchBoard.pending, pendingHandler)
       .addCase(fetchBoard.fulfilled, (state, action) => {
         fulfilledHandler(state);
-        state.item = action.payload.data;
+        state.current = action.payload.data;
       })
       .addCase(fetchBoard.rejected, rejectedHandler)
       .addCase(addBoard.pending, pendingHandler)
       .addCase(addBoard.fulfilled, (state, action) => {
         fulfilledHandler(state);
         state.list = [...state.list, action.payload.data];
+        state.current = action.payload.data;
       })
       .addCase(addBoard.rejected, rejectedHandler)
       .addCase(updateBoard.pending, pendingHandler)
@@ -90,6 +89,7 @@ const boardSlice = createSlice({
         fulfilledHandler(state);
         const id = action.payload;
         state.list = state.list.filter((board) => board._id !== id);
+        state.current = null;
       })
       .addCase(removeBoard.rejected, rejectedHandler)
       .addCase(fetchColumnList.pending, pendingHandler)

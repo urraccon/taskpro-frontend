@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 
 export const selectBoardList = (state) => state.board.list;
-export const selectBoard = (state) => state.board.item;
+export const selectCurrentBoard = (state) => state.board.current;
 export const selectColumnList = (state) => state.board.columnList;
 export const selectColumn = (state) => state.board.column;
 export const selectCardList = (state) => state.board.cardList;

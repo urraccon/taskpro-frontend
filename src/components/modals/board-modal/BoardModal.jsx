@@ -9,10 +9,11 @@ import BoardSchema from "./BoardSchema";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addBoard,
+  fetchBoard,
   updateBoard,
 } from "../../../redux/board/operations/boardOperations";
 import { useEffect, useState } from "react";
-import { selectBoard } from "../../../redux/board/selectors";
+import { selectCurrentBoard } from "../../../redux/board/selectors";
 
 const BoardModal = ({ id, close }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const BoardModal = ({ id, close }) => {
   const [title, setTitle] = useState("");
   const [icon, setIcon] = useState("project");
   const [background, setBackground] = useState("no-background");
-  const board = useSelector(selectBoard);
+  const currentBoard = useSelector(selectCurrentBoard);
 
   useEffect(() => {
     if (id) {
@@ -33,11 +34,11 @@ const BoardModal = ({ id, close }) => {
 
   useEffect(() => {
     if (action === "edit") {
-      setTitle(board.title);
-      setIcon(board.icon);
-      setBackground(board.background);
+      setTitle(currentBoard.title);
+      setIcon(currentBoard.icon);
+      setBackground(currentBoard.background);
     }
-  }, [action, board]);
+  }, [action, currentBoard]);
 
   useEffect(() => {
     if (title) {
@@ -66,6 +67,7 @@ const BoardModal = ({ id, close }) => {
               ? dispatch(addBoard(values))
               : dispatch(updateBoard({ values, id }));
           }
+
           handleClose();
         }}
       >
