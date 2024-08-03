@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HomePageWrapper from "../components/HomePageWrapper/HomePageWrapper";
 import ScreensPageLayout from "../components/ScreensPageLayout/ScreensPageLayout";
 import BackDropToSidebar from "../components/BackDropToSidebar/BackDropToSidebar";
-import { fetchBoardList } from "../redux/board/operations/boardOperations";
+import {
+  fetchBoard,
+  fetchBoardList,
+} from "../redux/board/operations/boardOperations";
+import { selectActiveBoard } from "../redux/auth/selectors";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [size, setSize] = useState(window.innerWidth);
+  const activeBoard = useSelector(selectActiveBoard);
 
   const sidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   useEffect(() => {
-    dispatch(fetchBoardList);
+    dispatch(fetchBoardList());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchBoard(activeBoard));
   }, [dispatch]);
 
   useEffect(() => {
