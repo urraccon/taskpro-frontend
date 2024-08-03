@@ -42,13 +42,13 @@ const BoardItem = ({ isActive, title, icon, id }) => {
     }
   }, [click, navigate]);
 
-  function handleClick(id) {
+  const handleClick = () => {
     dispatch(fetchBoard(id));
-  }
+  };
 
   return (
     <>
-      <Link to={`/home/${id}`} onClick={() => handleClick(id)}>
+      <Link to={`/home/${id}`} onClick={handleClick}>
         <BoardWrapper $isActive={isActive}>
           <TitleWrapper $isActive={isActive}>
             <BoardIcon $isActive={isActive}>

@@ -20,8 +20,14 @@ const bttnStyle = {
   },
 };
 
-const CustomButton = ({ children, onClick }) => (
-  <Button sx={bttnStyle} variant="contained" fullWidth onClick={onClick}>
+const CustomButton = ({ children, onClick, style }) => (
+  <Button
+    sx={bttnStyle}
+    variant="contained"
+    fullWidth
+    onClick={onClick}
+    style={style}
+  >
     <IconContainer>
       <PlusIcon>
         <IconPath href={`${icons}#icon-plus`} />
@@ -33,6 +39,7 @@ const CustomButton = ({ children, onClick }) => (
 
 CustomButton.propTypes = {
   onClick: PropTypes.func,
+  style: PropTypes.object,
 };
 
 export default CustomButton;
