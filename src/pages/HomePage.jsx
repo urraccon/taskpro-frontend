@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { fetchAllBoard } from "../redux/boards/operationsBoards";
 import { useDispatch } from "react-redux";
@@ -44,6 +45,7 @@ const HomePage = () => {
         {/** Add here ColumnList IOANA */}
       </ScreensPageLayout>
     </HomePageWrapper>
+
   );
 };
 
