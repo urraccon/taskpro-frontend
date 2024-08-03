@@ -1,17 +1,23 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
-import { persistReducerAuth } from './auth/authSlice';
-/** from redux
- * Import boards.
- * My guess support should be imported here to. */
+import { configureStore } from "@reduxjs/toolkit";
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import { persistReducerAuth } from "./auth/authSlice";
+import { persistBoardReducer } from "./board/boardSlice";
 
 export const store = configureStore({
   reducer: {
     auth: persistReducerAuth,
-    /** Add boards and suppport */
+    board: persistBoardReducer,
   },
 
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
