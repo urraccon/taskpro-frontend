@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { Label } from "./BoardModal.styles";
 import { Field, Form, Formik } from "formik";
 import CustomField from "../common/custom-field/CustomField";
 import CustomButton from "../common/custom-button/CustonButton";
@@ -9,11 +8,11 @@ import BoardSchema from "./BoardSchema";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addBoard,
-  fetchBoard,
   updateBoard,
 } from "../../../redux/board/operations/boardOperations";
 import { useEffect, useState } from "react";
 import { selectCurrentBoard } from "../../../redux/board/selectors";
+import CustomTitle from "../common/custom-title/CustomTitle";
 
 const BoardModal = ({ id, close }) => {
   const dispatch = useDispatch();
@@ -27,33 +26,23 @@ const BoardModal = ({ id, close }) => {
   useEffect(() => {
     if (id) {
       setAction("edit");
-    } else {
-      setOpen(true);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (action === "edit") {
       setTitle(currentBoard.title);
       setIcon(currentBoard.icon);
       setBackground(currentBoard.background);
-    }
-  }, [action, currentBoard]);
-
-  useEffect(() => {
-    if (title) {
+      setOpen(true);
+    } else {
       setOpen(true);
     }
-  }, [background]);
+  }, [id, currentBoard]);
 
-  function handleClose() {
+  const handleClose = () => {
     setOpen(false);
     close();
-  }
+  };
 
   return (
     <CustomModal open={open} onClose={handleClose}>
-      <Label>New board</Label>
+      <CustomTitle>{action === "add" ? "New board" : "Edit board"}</CustomTitle>
       <Formik
         initialValues={{
           title,
@@ -67,7 +56,6 @@ const BoardModal = ({ id, close }) => {
               ? dispatch(addBoard(values))
               : dispatch(updateBoard({ values, id }));
           }
-
           handleClose();
         }}
       >

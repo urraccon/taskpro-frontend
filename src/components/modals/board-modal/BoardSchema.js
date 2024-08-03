@@ -5,21 +5,19 @@ const BoardSchema = Yup.object().shape({
     .min(2, "Too short.")
     .max(24, "Too long.")
     .required("Title is required."),
-  icon: Yup.string()
-    .oneOf(
-      [
-        "project",
-        "star",
-        "loading",
-        "puzzle-piece",
-        "container",
-        "lightning",
-        "colors",
-        "hexagon",
-      ],
-      ({ value, values }) => `Invalid option ${value}. Valid options: ${values}`
-    )
-    .max(50),
+  icon: Yup.string().oneOf(
+    [
+      "project",
+      "star",
+      "loading",
+      "puzzle-piece",
+      "container",
+      "lightning",
+      "colors",
+      "hexagon",
+    ],
+    ({ value, values }) => `Invalid option ${value}. Valid options: ${values}`
+  ),
   background: Yup.string().oneOf(
     [
       "no-background",

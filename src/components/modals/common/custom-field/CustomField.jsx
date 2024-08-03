@@ -1,7 +1,7 @@
 import { TextField } from "formik-mui";
 
 const fieldStyle = (value) => ({
-  marginBottom: "9px",
+  marginBottom: "6px",
 
   "& input": {
     color: "white",

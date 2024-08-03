@@ -107,53 +107,29 @@ const boardSlice = createSlice({
       .addCase(addColumn.pending, pendingHandler)
       .addCase(addColumn.fulfilled, (state, action) => {
         fulfilledHandler(state);
-        const { boardId } = action.payload.data;
-        state.list = state.list.map((board) => {
-          if (board._id === boardId) {
-            const updatedColumnList = [
-              ...board.columnList,
-              action.payload.data,
-            ];
-            return {
-              ...board,
-              columnList: updatedColumnList,
-            };
-          }
-          return board;
-        });
+        state.current.columnList = [
+          ...state.current.columnList,
+          action.payload.data,
+        ];
       })
       .addCase(addColumn.rejected, rejectedHandler)
       .addCase(updateColumn.pending, pendingHandler)
       .addCase(updateColumn.fulfilled, (state, action) => {
+        debugger;
         fulfilledHandler(state);
-        const { _id, boardId } = action.payload.data;
-        state.list = state.list.map((board) => {
-          if (board._id === boardId) {
-            const updatedColumnList = board.columnList.map((column) =>
-              column._id === _id ? action.payload.data : column
-            );
-            return {
-              ...board,
-              columnList: updatedColumnList,
-            };
-          }
-          return board;
-        });
+        const { _id } = action.payload.data;
+        state.current.columnList = state.current.columnList.map((column) =>
+          column._id === _id ? action.payload.data : column
+        );
       })
       .addCase(updateColumn.rejected, rejectedHandler)
       .addCase(removeColumn.pending, pendingHandler)
       .addCase(removeColumn.fulfilled, (state, action) => {
         fulfilledHandler(state);
         const id = action.payload;
-        state.list = state.list.map((board) => {
-          const updatedColumnList = board.columnList.filter(
-            (column) => column._id !== id
-          );
-          return {
-            ...board,
-            columnList: updatedColumnList,
-          };
-        });
+        state.current.columnList = state.current.columnList.filter(
+          (column) => column._id !== id
+        );
       })
       .addCase(removeColumn.rejected, rejectedHandler)
       .addCase(fetchCardList.pending, pendingHandler)
@@ -171,53 +147,34 @@ const boardSlice = createSlice({
       .addCase(addCard.pending, pendingHandler)
       .addCase(addCard.fulfilled, (state, action) => {
         fulfilledHandler(state);
-        const { boardId, columnId } = action.payload.data;
-        state.list = state.list.map((board) => {
-          if (board._id === boardId) {
+        const { columnId } = action.payload.data;
+        state.current.columnList = state.current.columnList.map((column) => {
+          if (column._id === columnId) {
+            const updatedCardList = [...column.cardList, action.payload.data];
             return {
-              ...board,
-              columnList: board.columnList.map((column) => {
-                if (column._id === columnId) {
-                  const updatedCardList = [
-                    ...column.cardList,
-                    action.payload.data,
-                  ];
-                  return {
-                    ...column,
-                    cardList: updatedCardList,
-                  };
-                }
-                return column;
-              }),
+              ...column,
+              cardList: updatedCardList,
             };
           }
-          return board;
+          return column;
         });
       })
       .addCase(addCard.rejected, rejectedHandler)
       .addCase(updateCard.pending, pendingHandler)
       .addCase(updateCard.fulfilled, (state, action) => {
         fulfilledHandler(state);
-        const { _id, boardId, columnId } = action.payload.data;
-        state.list = state.list.map((board) => {
-          if (board._id === boardId) {
+        const { _id, columnId } = action.payload.data;
+        state.current.columnList = state.current.columnList.map((column) => {
+          if (column._id === columnId) {
+            const updatedCardList = column.cardList.map((card) =>
+              card._id === _id ? action.payload.data : card
+            );
             return {
-              ...board,
-              columnList: board.columnList.map((column) => {
-                if (column._id === columnId) {
-                  const updatedCardList = column.cardList.map((card) =>
-                    card._id === _id ? action.payload.data : card
-                  );
-                  return {
-                    ...column,
-                    cardList: updatedCardList,
-                  };
-                }
-                return column;
-              }),
+              ...column,
+              cardList: updatedCardList,
             };
           }
-          return board;
+          return column;
         });
       })
       .addCase(updateCard.rejected, rejectedHandler)
@@ -225,56 +182,40 @@ const boardSlice = createSlice({
       .addCase(removeCard.fulfilled, (state, action) => {
         fulfilledHandler(state);
         const id = action.payload;
-        state.list = state.list.map((board) => ({
-          ...board,
-          columnList: board.columnList.map((column) => {
-            const updatedCardList = column.cardList.filter(
-              (card) => card._id !== id
-            );
-            return {
-              ...column,
-              cardList: updatedCardList,
-            };
-          }),
-        }));
+        state.current.columnList = state.current.columnList.map((column) => {
+          const updatedCardList = column.cardList.filter(
+            (card) => card._id !== id
+          );
+          return {
+            ...column,
+            cardList: updatedCardList,
+          };
+        });
       })
       .addCase(removeCard.rejected, rejectedHandler)
       .addCase(moveCard.pending, pendingHandler)
       .addCase(moveCard.fulfilled, (state, action) => {
         fulfilledHandler(state);
         const movedCard = action.payload.data;
-        const { boardId, columnId, _id } = movedCard;
-        state.list = state.list.map((board) => ({
-          ...board,
-          columnList: board.columnList.map((column) => {
-            const updatedCardList = column.cardList.filter(
-              (card) => card._id !== _id
-            );
+        const { columnId, _id } = movedCard;
+        state.current.columnList = state.current.columnList.map((column) => {
+          const updatedCardList = column.cardList.filter(
+            (card) => card._id !== _id
+          );
+          return {
+            ...column,
+            cardList: updatedCardList,
+          };
+        });
+        state.current.columnList = state.current.columnList.map((column) => {
+          if (column._id === columnId) {
+            const updatedCardList = [...column.cardList, movedCard];
             return {
               ...column,
               cardList: updatedCardList,
             };
-          }),
-        }));
-        state.list = state.list.map((board) => {
-          if (board._id === boardId) {
-            return {
-              ...board,
-              columnList: board.columnList.map((column) => {
-                if (column._id === columnId) {
-                  const updatedCardList = column.cardList.map((card) =>
-                    card._id === _id ? movedCard : card
-                  );
-                  return {
-                    ...column,
-                    cardList: updatedCardList,
-                  };
-                }
-                return column;
-              }),
-            };
           }
-          return board;
+          return column;
         });
       })
       .addCase(moveCard.rejected, rejectedHandler);

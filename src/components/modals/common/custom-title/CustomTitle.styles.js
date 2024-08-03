@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Label = styled.h1`
+export const Title = styled.h1`
   font-family: Poppins;
   font-weight: 500;
   font-size: 18px;
