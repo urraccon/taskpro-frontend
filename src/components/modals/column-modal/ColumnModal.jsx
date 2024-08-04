@@ -15,9 +15,9 @@ import {
 import ColumnSchema from "./ColumnSchema";
 import CustomTitle from "../common/custom-title/CustomTitle";
 import CustomField from "../common/custom-field/CustomField";
-import CustomButton from "../common/custom-button/CustonButton";
+import CustomButton from "../common/custom-button/CustomButton";
 
-const customBtnStyle = {
+const btnStyle = {
   marginTop: 0,
 };
 
@@ -47,7 +47,6 @@ const ColumnModal = ({ id, close }) => {
   }, [column]);
 
   const handleClose = () => {
-    setOpen(false);
     close();
   };
 
@@ -73,7 +72,7 @@ const ColumnModal = ({ id, close }) => {
         {({ submitForm }) => (
           <Form>
             <Field name="title" label="Title" component={CustomField} />
-            <CustomButton onClick={submitForm} style={customBtnStyle}>
+            <CustomButton onClick={submitForm} style={btnStyle}>
               {action === "add" ? "Add" : "Edit"}
             </CustomButton>
           </Form>
