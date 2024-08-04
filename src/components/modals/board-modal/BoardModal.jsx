@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Field, Form, Formik } from "formik";
 import CustomField from "../common/custom-field/CustomField";
-import CustomButton from "../common/custom-button/CustonButton";
+import CustomButton from "../common/custom-button/CustomButton";
 import CustomModal from "../common/custom-modal/CustomModal";
 import CustomRadioGroup from "../common/custom-radio-group/CustomRadioGroup";
 import BoardSchema from "./BoardSchema";
@@ -36,7 +36,6 @@ const BoardModal = ({ id, close }) => {
   }, [id, currentBoard]);
 
   const handleClose = () => {
-    setOpen(false);
     close();
   };
 

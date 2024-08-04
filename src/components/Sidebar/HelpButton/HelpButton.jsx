@@ -14,8 +14,7 @@ import {
   ButtonIcon,
   TextHelpButton,
 } from "./HelpButton.styled";
-
-import NeedHelp from "../../NeedHelp/NeedHelp";
+import SupportModal from "../../modals/support-modal/SupportModal";
 
 const CreateHelpButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,11 +61,7 @@ const CreateHelpButton = () => {
           <TextHelpButton>Need help?</TextHelpButton>
         </ButtonHelpContainer>
       </HelpContainer>
-      {isModalOpen && (
-        <Modal onClose={closeModalHelp}>
-          <NeedHelp onClose={closeModalHelp} />
-        </Modal>
-      )}
+      <SupportModal open={isModalOpen} close={closeModalHelp} />
     </>
   );
 };

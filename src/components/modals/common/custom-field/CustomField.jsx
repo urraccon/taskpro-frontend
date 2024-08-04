@@ -1,9 +1,10 @@
 import { TextField } from "formik-mui";
+import PropTypes from "prop-types";
 
-const fieldStyle = (value) => ({
-  marginBottom: "6px",
+const fieldStyle = (value, type) => ({
+  marginBottom: type === "small-gap" ? 0 : "6px",
 
-  "& input": {
+  "& .MuiInputBase-input": {
     color: "white",
     fontFamily: "Poppins",
     fontWeight: "regular",
@@ -13,6 +14,10 @@ const fieldStyle = (value) => ({
     padding: "14px 18px",
     lineHeight: "normal",
     height: "unset",
+  },
+
+  "& .MuiInputBase-multiline": {
+    padding: 0,
   },
 
   "& .MuiInputLabel-root": {
@@ -66,10 +71,11 @@ const fieldStyle = (value) => ({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
     overflow: "hidden",
+    marginTop: type === "small-gap" ? 0 : "3px",
   },
 });
 
-const CustomField = (props) => {
+const CustomField = ({ style, type, rows, multiline, ...props }) => {
   const { value } = props.field;
 
   return (
@@ -78,9 +84,18 @@ const CustomField = (props) => {
       type="text"
       fullWidth
       helperText=" "
-      sx={fieldStyle(value)}
+      multiline={multiline}
+      rows={rows}
+      sx={fieldStyle(value, type)}
     />
   );
+};
+
+CustomField.propTypes = {
+  style: PropTypes.object,
+  type: PropTypes.string,
+  rows: PropTypes.number,
+  multiline: PropTypes.bool,
 };
 
 export default CustomField;
