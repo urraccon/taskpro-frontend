@@ -3,7 +3,7 @@ import { IconContainer, IconPath, PlusIcon } from "./CustomButton.styles";
 import icons from "../../../../assets/svgSprite/iconsSprite.svg";
 import PropTypes from "prop-types";
 
-const bttnStyle = {
+const btnStyle = (btnType) => ({
   backgroundColor: "#bedbb0",
   color: "#161616",
   fontFamily: "Poppins",
@@ -13,22 +13,29 @@ const bttnStyle = {
   textTransform: "none",
   paddingTop: "10px",
   paddingBottom: "10px",
-  marginTop: "40px",
+  marginTop: btnType === "card" ? "25px" : "40px",
 
   "&:hover": {
     backgroundColor: "#9dc888",
   },
-};
+});
 
-const CustomButton = ({ children, onClick, style, type }) => (
+const CustomButton = ({
+  children,
+  onClick,
+  style,
+  type = "submit",
+  btnType,
+}) => (
   <Button
-    sx={bttnStyle}
+    sx={btnStyle(btnType)}
     variant="contained"
     fullWidth
     onClick={onClick}
     style={style}
+    type={type}
   >
-    {type !== "support" && (
+    {btnType !== "support" && (
       <IconContainer>
         <PlusIcon>
           <IconPath href={`${icons}#icon-plus`} />
@@ -43,6 +50,7 @@ CustomButton.propTypes = {
   onClick: PropTypes.func,
   style: PropTypes.object,
   type: PropTypes.string,
+  btnType: PropTypes.string,
 };
 
 export default CustomButton;

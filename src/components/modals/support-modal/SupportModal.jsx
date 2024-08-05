@@ -29,7 +29,7 @@ const SupportModal = ({ open, close }) => {
           close();
         }}
       >
-        {({ submitForm }) => (
+        {() => (
           <Form>
             <Field
               name="email"
@@ -45,7 +45,7 @@ const SupportModal = ({ open, close }) => {
               rows={5}
               multiline={true}
             />
-            <CustomButton onClick={submitForm} type="support" style={btnStyle}>
+            <CustomButton type="submit" btnType="support" style={btnStyle}>
               Send
             </CustomButton>
           </Form>
