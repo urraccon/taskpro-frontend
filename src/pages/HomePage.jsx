@@ -9,6 +9,7 @@ import {
   fetchBoardList,
 } from "../redux/board/operations/boardOperations";
 import { selectActiveBoard } from "../redux/auth/selectors";
+import CardModal from "../components/modals/card-modal/CardModal";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -42,8 +43,19 @@ const HomePage = () => {
     };
   }, [size]);
 
+  const [open, setOpen] = useState(true);
+
   return (
     <HomePageWrapper>
+      {open && (
+        <CardModal
+          columnId="66aeb9383bf854d6132cbf54"
+          id="66af601664dfb1f44f4d98c0"
+          close={() => {
+            setOpen(false);
+          }}
+        />
+      )}
       {isSidebarOpen && (
         <BackDropToSidebar close={sidebarToggle}>
           <Sidebar />

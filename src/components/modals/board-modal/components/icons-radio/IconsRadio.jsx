@@ -18,17 +18,13 @@ const radioStyle = {
   padding: 0,
 };
 
-const IconsRadio = (props) => {
-  const option = props.option;
-
-  return (
-    <Radio
-      sx={radioStyle}
-      {...props}
-      icon={icon(option)}
-      checkedIcon={checkedIcon(option)}
-    />
-  );
-};
+const IconsRadio = ({ option, ...props }) => (
+  <Radio
+    {...props}
+    sx={radioStyle}
+    icon={icon(option)}
+    checkedIcon={checkedIcon(option)}
+  />
+);
 
 export default IconsRadio;

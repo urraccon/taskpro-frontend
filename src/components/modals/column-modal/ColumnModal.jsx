@@ -21,14 +21,12 @@ const btnStyle = {
   marginTop: 0,
 };
 
-const ColumnModal = ({ id, close }) => {
+const ColumnModal = ({ id, boardId, close }) => {
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState("add");
   const [title, setTitle] = useState("");
-  const dispatch = useDispatch();
   const column = useSelector(selectColumn);
-  const currentBoard = useSelector(selectCurrentBoard);
-  const boardId = currentBoard._id;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (id) {
@@ -85,6 +83,7 @@ const ColumnModal = ({ id, close }) => {
 ColumnModal.propTypes = {
   id: PropTypes.string,
   close: PropTypes.func,
+  boardId: PropTypes.string,
 };
 
 export default ColumnModal;

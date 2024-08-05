@@ -2,9 +2,9 @@ import * as Yup from "yup";
 
 const BoardSchema = Yup.object().shape({
   title: Yup.string()
-    .min(2, "Too short.")
-    .max(24, "Too long.")
-    .required("Title is required."),
+    .min(2, "Too short")
+    .max(50, "Too long")
+    .required("Title is required"),
   icon: Yup.string().oneOf(
     [
       "project",
