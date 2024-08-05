@@ -18,6 +18,9 @@ import CustomButton from "../common/custom-button/CustomButton";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CustomDate from "../common/custom-date/CustomDate";
+import "dayjs/locale/en-gb";
+
+dayjs.locale("en-gb");
 
 const CardModal = ({ id, columnId, close }) => {
   const [open, setOpen] = useState(false);
