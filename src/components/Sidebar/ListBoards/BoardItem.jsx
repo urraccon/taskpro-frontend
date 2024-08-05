@@ -8,10 +8,13 @@ import {
   ToolBarButton,
   ToolBarIcon,
 } from "./ListBoards.styled";
-
 import { useDispatch } from "react-redux";
-import { deleteBoard } from "../../../redux/boards/operationsBoards";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  fetchBoard,
+  removeBoard,
+} from "../../../redux/board/operations/boardOperations";
+import BoardModal from "../../modals/board-modal/BoardModal";
 
 const BoardItem = ({ isActive, title, icon, id }) => {
   const dispatch = useDispatch();
@@ -29,7 +32,7 @@ const BoardItem = ({ isActive, title, icon, id }) => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteBoard(id));
+    dispatch(removeBoard(id));
     setClick(true);
   };
 
@@ -39,13 +42,17 @@ const BoardItem = ({ isActive, title, icon, id }) => {
     }
   }, [click, navigate]);
 
+  const handleClick = () => {
+    dispatch(fetchBoard(id));
+  };
+
   return (
     <>
-      <Link to={`/home/${id}`}>
+      <Link to={`/home/${id}`} onClick={handleClick}>
         <BoardWrapper $isActive={isActive}>
           <TitleWrapper $isActive={isActive}>
             <BoardIcon $isActive={isActive}>
-              <use xlinkHref={`${iconsSprite}#${icon}`} />
+              <use xlinkHref={`${iconsSprite}#icon-${icon}`} />
             </BoardIcon>
             <p>{title}</p>
           </TitleWrapper>
@@ -66,12 +73,7 @@ const BoardItem = ({ isActive, title, icon, id }) => {
           )}
         </BoardWrapper>
       </Link>
-
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={closeModalBoard}>
-          <EditBoard onClose={closeModalBoard} />
-        </Modal>
-      )}
+      {isModalOpen && <BoardModal id={id} close={closeModalBoard} />}
     </>
   );
 };

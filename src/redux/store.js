@@ -9,14 +9,14 @@ import {
   REGISTER,
 } from "redux-persist";
 import { persistReducerAuth } from "./auth/authSlice";
+import boardReducer from "./board/boardSlice";
 import { supportReducer } from "./support/supportSlice";
-import { boardsReducer } from "./boards/boardsSlice";
 
 export const store = configureStore({
   reducer: {
     auth: persistReducerAuth,
+    board: boardReducer,
     support: supportReducer,
-    boards: boardsReducer,
   },
 
   middleware: (getDefaultMiddleware) =>
