@@ -11,6 +11,7 @@ import { refreshUser } from "../redux/auth/operations";
 import Loader from "./Loader/Loader";
 import ThemeProvider from "../providers/themeProvider";
 import HomePage from "../pages/HomePage";
+import ColumnsList from "../components/ColumnList/ColumnList";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,9 +43,8 @@ const App = () => {
               <PrivateRoute redirectTo="/auth/login" component={<HomePage />} />
             }
           >
-            <Route path=":boardId" />
+            <Route path=":boardId" element={<ColumnsList />} />
           </Route>
-
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>

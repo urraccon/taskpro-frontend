@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   ContainerBoards,
   TitleBoard,
@@ -7,8 +8,17 @@ import {
   ButtonIcon,
 } from "./CreateBoardButton.styled";
 import iconsSprite from "../../../assets/svgSprite/iconsSprite.svg";
-
+import Modal from '../../Modal/Modal';
 const CreateBoardButton = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModalBoard = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModalBoard = () => {
+    setIsModalOpen(false);
+  };
   return (
     <ContainerBoards>
       <TitleBoard>My boards</TitleBoard>
@@ -20,6 +30,11 @@ const CreateBoardButton = () => {
           </ButtonIcon>
         </ButtonBoard>
       </ButtonBoardContainer>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={closeModalBoard}>
+          <CreateNewBoard onClose={closeModalBoard} />
+        </Modal>
+      )}
     </ContainerBoards>
   );
 };

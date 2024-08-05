@@ -1,0 +1,38 @@
+.void {
+  padding: 14px 20px;
+  width: 100%;
+  height: calc(100vh - 60px);
+  height: 100%;
+  background-color: var(--void_page_color);
+}
+.void_text {
+  /* Позиціонується відносно homepagewrapper */
+  max-width: 335px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(calc(-50% - 68px));
+  text-align: center;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  letter-spacing: -0.02em;
+  color: var(--light_text);
+  transition: color 250ms linear;
+}
+.add_board_btn {
+  font-size: inherit;
+  border: none;
+  background-color: transparent;
+  color: var(--accent);
+}
+.add_board_btn:hover {
+  color: var(--accent_hover);
+}
+@media screen and (min-width: 768px) {
+  .void_text {
+    font-size: 14px;
+    max-width: 486px;
+  }
+}
