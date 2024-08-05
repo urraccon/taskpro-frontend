@@ -43,19 +43,8 @@ const HomePage = () => {
     };
   }, [size]);
 
-  const [open, setOpen] = useState(true);
-
   return (
     <HomePageWrapper>
-      {open && (
-        <CardModal
-          columnId="66aeb9383bf854d6132cbf54"
-          id="66af601664dfb1f44f4d98c0"
-          close={() => {
-            setOpen(false);
-          }}
-        />
-      )}
       {isSidebarOpen && (
         <BackDropToSidebar close={sidebarToggle}>
           <Sidebar />
