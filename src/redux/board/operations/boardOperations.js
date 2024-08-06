@@ -8,7 +8,7 @@ export const fetchBoardList = createAsyncThunk(
       const response = await axios.get("/api/boards");
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.rersponse.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );

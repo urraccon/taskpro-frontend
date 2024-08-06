@@ -14,10 +14,10 @@ import {
 } from "./Header.styled";
 import Select from "react-select";
 import sprite from "../../assets/svgSprite/iconsSprite.svg";
-import EditProfile from "../EditProfile/EditProfile";
 import { selectUser } from "../../redux/auth/selectors.js";
 import { selectTheme } from "../../redux/theme/selectors";
 import { changeTheme } from "../../redux/theme/operations";
+import ProfileModal from "../modals/profile-modal/ProfileModal.jsx";
 
 const options = [
   { value: "light", label: "Light" },
@@ -131,11 +131,7 @@ const Header = ({ showSidebar, size }) => {
               )}
             </Button>
 
-            {isShowModal && (
-              <Modal isOpen={isShowModal} onClose={closeHandleClik}>
-                <EditProfile onClose={closeHandleClik} />
-              </Modal>
-            )}
+            {isShowModal && <ProfileModal />}
           </List>
         </ListItem>
       </Wrapper>

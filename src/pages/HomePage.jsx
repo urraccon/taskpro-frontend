@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HomePageWrapper from "../components/HomePageWrapper/HomePageWrapper";
 import ScreensPageLayout from "../components/ScreensPageLayout/ScreensPageLayout";
 import BackDropToSidebar from "../components/BackDropToSidebar/BackDropToSidebar";
-import {
-  fetchBoard,
-  fetchBoardList,
-} from "../redux/board/operations/boardOperations";
-import { selectActiveBoard } from "../redux/auth/selectors";
-import CardModal from "../components/modals/card-modal/CardModal";
+import { fetchBoardList } from "../redux/board/operations/boardOperations";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [size, setSize] = useState(window.innerWidth);
-  const activeBoard = useSelector(selectActiveBoard);
 
   const sidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -23,10 +17,6 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchBoardList());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchBoard(activeBoard));
   }, [dispatch]);
 
   useEffect(() => {
@@ -51,9 +41,7 @@ const HomePage = () => {
         </BackDropToSidebar>
       )}
       {size >= 1440 && <Sidebar />}
-      <ScreensPageLayout windowSize={size} burgerClick={sidebarToggle}>
-        {/** Add here ColumnList IOANA */}
-      </ScreensPageLayout>
+      <ScreensPageLayout windowSize={size} burgerClick={sidebarToggle} />
     </HomePageWrapper>
   );
 };

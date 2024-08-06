@@ -18,7 +18,7 @@
 }
 
 .add_card_btn:hover {
-  background-color: var(--accent_hover)
+  background-color: var(--accent_hover);
 }
 
 .svg_wrapper {
@@ -33,8 +33,10 @@
 }
 
 .btn_plus_icon {
-  stroke: var(--add_column_svg);
+  color: var(--add_column_svg);
 }
-@media screen and (max-width:375px) {
-.add_card_btn{width: 100%;}
+@media screen and (max-width: 375px) {
+  .add_card_btn {
+    width: 100%;
+  }
 }

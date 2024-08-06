@@ -1,20 +1,19 @@
-import React from 'react';
-import css from './styles.module.css';
-import svg from '../../assets/svgSprite/iconsSprite.svg';
-import { useDispatch } from 'react-redux';
-import { setFilter } from '../../redux/boards/filterSlice';
+import React from "react";
+import css from "./styles.module.css";
+import svg from "../../assets/svgSprite/iconsSprite.svg";
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "../../redux/board/boardSlice";
+
 const FilterModal = ({ onClose }) => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-  const handleChange = ev => {
-    dispatch(setFilter(ev.target.value))
-
+  const handleChange = (ev) => {
+    dispatch(setSearchTerm(ev.target.value));
   };
 
   const resetFilter = () => {
-    dispatch(setFilter("all"))
-  }
+    dispatch(setSearchTerm("all"));
+  };
 
   return (
     <div className={css.filter}>
@@ -27,7 +26,9 @@ const FilterModal = ({ onClose }) => {
       <hr className={css.hr} />
       <div className={css.title_wrapper}>
         <p className={css.label_title}>Label color</p>
-        <button onClick={resetFilter} className={css.show_all_btn}>Show all</button>
+        <button onClick={resetFilter} className={css.show_all_btn}>
+          Show all
+        </button>
       </div>
       <label className={css.label}>
         <input

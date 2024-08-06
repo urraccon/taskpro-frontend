@@ -41,6 +41,7 @@ const pendingHandler = (state) => {
 
 const fulfilledHandler = (state) => {
   state.status = "succeeded";
+  state.error = null;
 };
 
 const rejectedHandler = (state, action) => {
@@ -79,9 +80,11 @@ const boardSlice = createSlice({
       .addCase(updateBoard.fulfilled, (state, action) => {
         fulfilledHandler(state);
         const { _id } = action.payload.data;
+        const updatedBoard = action.payload.data;
         state.list = state.list.map((board) =>
-          board._id === _id ? action.payload.data : board
+          board._id === _id ? updatedBoard : board
         );
+        state.current = { ...state.current, ...updatedBoard };
       })
       .addCase(updateBoard.rejected, rejectedHandler)
       .addCase(removeBoard.pending, pendingHandler)
@@ -89,7 +92,7 @@ const boardSlice = createSlice({
         fulfilledHandler(state);
         const id = action.payload;
         state.list = state.list.filter((board) => board._id !== id);
-        state.current = null;
+        state.current = {};
       })
       .addCase(removeBoard.rejected, rejectedHandler)
       .addCase(fetchColumnList.pending, pendingHandler)
@@ -115,11 +118,11 @@ const boardSlice = createSlice({
       .addCase(addColumn.rejected, rejectedHandler)
       .addCase(updateColumn.pending, pendingHandler)
       .addCase(updateColumn.fulfilled, (state, action) => {
-        debugger;
         fulfilledHandler(state);
         const { _id } = action.payload.data;
+        const updatedColumn = action.payload.data;
         state.current.columnList = state.current.columnList.map((column) =>
-          column._id === _id ? action.payload.data : column
+          column._id === _id ? { ...column, ...updatedColumn } : column
         );
       })
       .addCase(updateColumn.rejected, rejectedHandler)
@@ -149,13 +152,21 @@ const boardSlice = createSlice({
         fulfilledHandler(state);
         const { columnId } = action.payload.data;
         state.current.columnList = state.current.columnList.map((column) => {
-          if (column._id === columnId) {
-            const updatedCardList = [...column.cardList, action.payload.data];
+          if (column.cardList) {
+            if (column._id === columnId) {
+              const updatedCardList = [...column.cardList, action.payload.data];
+              return {
+                ...column,
+                cardList: updatedCardList,
+              };
+            }
+          } else {
             return {
               ...column,
-              cardList: updatedCardList,
+              cardList: [action.payload.data],
             };
           }
+
           return column;
         });
       })
@@ -199,21 +210,32 @@ const boardSlice = createSlice({
         const movedCard = action.payload.data;
         const { columnId, _id } = movedCard;
         state.current.columnList = state.current.columnList.map((column) => {
-          const updatedCardList = column.cardList.filter(
-            (card) => card._id !== _id
-          );
-          return {
-            ...column,
-            cardList: updatedCardList,
-          };
-        });
-        state.current.columnList = state.current.columnList.map((column) => {
-          if (column._id === columnId) {
-            const updatedCardList = [...column.cardList, movedCard];
+          if (column.cardList) {
+            const updatedCardList = column.cardList.filter(
+              (card) => card._id !== _id
+            );
             return {
               ...column,
               cardList: updatedCardList,
             };
+          } else {
+            return column;
+          }
+        });
+        state.current.columnList = state.current.columnList.map((column) => {
+          if (column._id === columnId) {
+            if (column.cardList) {
+              const updatedCardList = [...column.cardList, movedCard];
+              return {
+                ...column,
+                cardList: updatedCardList,
+              };
+            } else {
+              return {
+                ...column,
+                cardList: [movedCard],
+              };
+            }
           }
           return column;
         });
