@@ -131,7 +131,7 @@ const Header = ({ showSidebar, size }) => {
               )}
             </Button>
 
-            {isShowModal && <ProfileModal />}
+            <ProfileModal open={isShowModal} close={closeHandleClik} />
           </List>
         </ListItem>
       </Wrapper>

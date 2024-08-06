@@ -80,13 +80,13 @@ const CustomField = ({ style, type, rows, multiline, ...props }) => {
 
   return (
     <TextField
-      {...props}
       type="text"
       fullWidth
       helperText=" "
       multiline={multiline}
       rows={rows}
       sx={fieldStyle(value, type)}
+      {...props}
     />
   );
 };

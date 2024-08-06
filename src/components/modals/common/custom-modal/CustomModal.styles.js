@@ -9,6 +9,7 @@ export const Container = styled.div`
   border: 1px solid #bedbb0;
   padding: 23px;
   outline: none;
+  position: relative;
 
   @media screen and (max-width: 375px) {
     margin: 0 20px;

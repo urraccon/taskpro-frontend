@@ -13,12 +13,22 @@ const btnStyle = (btnType) => ({
   textTransform: "none",
   paddingTop: "10px",
   paddingBottom: "10px",
-  marginTop: btnType === "card" ? "25px" : "40px",
+  marginTop: btnType === "card" ? "25px" : btnType === "profile" ? 0 : "40px",
+  padding: btnType === "profile" ? 0 : "10px 16px",
+  width: btnType === "profile" ? "24px" : "100%",
+  height: btnType === "profile" ? "24px" : "100%",
+  minWidth: btnType === "profile" ? 0 : "64px",
+  position: btnType === "profile" && "absolute",
+  zIndex: btnType === "profile" && 1,
+  left: btnType === "profile" && "46%",
+  top: btnType === "profile" && "30%",
 
   "&:hover": {
     backgroundColor: "#9dc888",
   },
 });
+
+const plusIconProfileStyle = { color: " #121212" };
 
 const CustomButton = ({
   children,
@@ -35,12 +45,18 @@ const CustomButton = ({
     style={style}
     type={type}
   >
-    {btnType !== "support" && (
-      <IconContainer>
-        <PlusIcon>
-          <IconPath href={`${icons}#icon-plus`} />
-        </PlusIcon>
-      </IconContainer>
+    {btnType === "profile" ? (
+      <PlusIcon style={plusIconProfileStyle}>
+        <IconPath href={`${icons}#icon-plus`} />
+      </PlusIcon>
+    ) : (
+      btnType !== "without-icon" && (
+        <IconContainer>
+          <PlusIcon>
+            <IconPath href={`${icons}#icon-plus`} />
+          </PlusIcon>
+        </IconContainer>
+      )
     )}
     {children}
   </Button>

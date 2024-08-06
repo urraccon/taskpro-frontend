@@ -45,7 +45,7 @@ const SupportModal = ({ open, close }) => {
               rows={5}
               multiline={true}
             />
-            <CustomButton type="submit" btnType="support" style={btnStyle}>
+            <CustomButton btnType="without-icon" style={btnStyle}>
               Send
             </CustomButton>
           </Form>
