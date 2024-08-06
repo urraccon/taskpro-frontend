@@ -23,7 +23,7 @@ const containerStyle = (error) => ({
 });
 
 const CustomDate = ({ label, ...props }) => {
-  const { name } = props.field;
+  const { name, value } = props.field;
   const [field, meta, helpers] = useField(name);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,7 +92,7 @@ const CustomDate = ({ label, ...props }) => {
         }}
       >
         <DateCalendar
-          value={field.value}
+          value={value}
           onChange={handleChange}
           sx={calendarStyle}
           views={["day"]}

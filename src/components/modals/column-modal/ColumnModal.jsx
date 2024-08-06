@@ -8,10 +8,7 @@ import {
   fetchColumn,
   updateColumn,
 } from "../../../redux/board/operations/columnOperations";
-import {
-  selectColumn,
-  selectCurrentBoard,
-} from "../../../redux/board/selectors";
+import { selectColumn } from "../../../redux/board/selectors";
 import ColumnSchema from "./ColumnSchema";
 import CustomTitle from "../common/custom-title/CustomTitle";
 import CustomField from "../common/custom-field/CustomField";
@@ -67,10 +64,10 @@ const ColumnModal = ({ id, boardId, close }) => {
           handleClose();
         }}
       >
-        {({ submitForm }) => (
+        {() => (
           <Form>
             <Field name="title" label="Title" component={CustomField} />
-            <CustomButton onClick={submitForm} style={btnStyle}>
+            <CustomButton style={btnStyle}>
               {action === "add" ? "Add" : "Edit"}
             </CustomButton>
           </Form>
