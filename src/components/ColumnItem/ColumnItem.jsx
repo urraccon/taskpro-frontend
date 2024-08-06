@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-// import TaskCard from './components/TaskCard/TaskCard';
-import css from './styles.module.css';
-import iconSprite from '../../assets/svgSprite/iconsSprite.svg';
-import AddCardBtn from '../AddCardBtn/AddCardBtn';
-import Modal from '../Modal/Modal';
-import EditColumModal from '../EditColumnModal/EditColumnModal';
-// import { CardModal } from 'components/CardModal/CardModal';
-import { useDispatch } from 'react-redux';
-import { deleteColumn } from '../../redux/boards/operationsColumns';
+import React, { useState } from "react";
+import css from "./styles.module.css";
+import iconSprite from "../../assets/svgSprite/iconsSprite.svg";
+import AddCardBtn from "../AddCardBtn/AddCardBtn";
+import { useDispatch } from "react-redux";
+import ColumnModal from "../modals/column-modal/ColumnModal";
+import CardModal from "../modals/card-modal/CardModal";
+import { removeColumn } from "../../redux/board/operations/columnOperations";
+import TaskCard from "../TaskCard/TaskCard";
 
 const ColumnItem = ({ column }) => {
-
   const dispatch = useDispatch();
-  const { title, cards, _id } = column;
+  const { title, cardList, _id } = column;
   const [isRenameColumnOpen, setIsRenameColumnOpen] = useState(false);
   const toggleEdit = () => {
     setIsRenameColumnOpen(!isRenameColumnOpen);
@@ -34,7 +32,7 @@ const ColumnItem = ({ column }) => {
             </button>
             <button
               onClick={() => {
-                dispatch(deleteColumn(_id));
+                dispatch(removeColumn(_id));
               }}
               className={css.culumn_title_btn}
             >
@@ -45,8 +43,8 @@ const ColumnItem = ({ column }) => {
           </div>
         </div>
         <ul className={css.task_list}>
-          {cards &&
-            cards.map(el => {
+          {cardList &&
+            cardList.map((el) => {
               return (
                 <li key={el._id}>
                   <TaskCard cardOwner={column._id} cardData={el} />
@@ -55,20 +53,8 @@ const ColumnItem = ({ column }) => {
             })}
         </ul>
         <AddCardBtn click={toggleAddCard} />
-        {isRenameColumnOpen && (
-          <Modal onClose={toggleEdit}>
-            <EditColumModal columnId={_id} title={title} onClose={toggleEdit} />
-          </Modal>
-        )}
-        {isAddCardOpen && (
-          <Modal onClose={toggleAddCard}>
-            <CardModal
-              initialValues={{ ...column, title: '', label: "without" }}
-              newCard
-              onClose={toggleAddCard}
-            />
-          </Modal>
-        )}
+        {isRenameColumnOpen && <ColumnModal id={_id} close={toggleEdit} />}
+        {isAddCardOpen && <CardModal columnId={_id} close={toggleAddCard} />}
       </li>
     </>
   );

@@ -9,11 +9,9 @@ import AuthPage from "../pages/AuthPage";
 import { selectIsRefreshing } from "../redux/auth/selectors";
 import { refreshUser } from "../redux/auth/operations";
 import Loader from "./Loader/Loader";
-
 import ThemeProvider from "../providers/themeProvider";
-
 import HomePage from "../pages/HomePage";
-import ColumnsList from "../components/ColumnList/ColumnList";
+import ColumnList from "../components/ColumnList/ColumnList";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,7 +25,6 @@ const App = () => {
     <Loader />
   ) : (
     <div>
-
       {/* * Content inside this div must be wrapped in the theme component */}
       <ThemeProvider>
         <Routes>
@@ -46,12 +43,11 @@ const App = () => {
               <PrivateRoute redirectTo="/auth/login" component={<HomePage />} />
             }
           >
-            <Route path=":boardId" element={<ColumnsList />} />
+            <Route path=":boardId" element={<ColumnList />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
-
     </div>
   );
 };

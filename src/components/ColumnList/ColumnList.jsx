@@ -1,24 +1,44 @@
-import css from './styles.module.css';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { fetchSingleBoard } from '../../redux/boards/operationsBoards';
-import AddColumnModal from '../AddColumnModal/AddColumModal';
-import Modal from '../Modal/Modal';
-import AddColumnButton from '../AddColumnButton/AddColumnButton';
-import OpenFiltersButton from '../OpenFiltersBtn/OpenFiltersBtn';
-import FilterModal from '../FilterModal/FilterModal';
-import { selectFilter, selectIsBoardsLoading, selectedBoard } from '../../redux/boards/selectors';
-import { FilteredColumns } from '../FiltredColumns';
-import BoardLoader from '../BoardLoader/BoardLoader';
+import css from "./styles.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import Modal from "../Modal/Modal";
+import AddColumnButton from "../AddColumnButton/AddColumnButton";
+import OpenFiltersButton from "../OpenFiltersBtn/OpenFiltersBtn";
+import FilterModal from "../FilterModal/FilterModal";
+import { FilteredColumns } from "../FiltredColumns";
+import BoardLoader from "../BoardLoader/BoardLoader";
+import {
+  selectBoardStatus,
+  selectCurrentBoard,
+  selectSearchTerm,
+} from "../../redux/board/selectors";
+import ColumnModal from "../modals/column-modal/ColumnModal";
+import { fetchBoard } from "../../redux/board/operations/boardOperations";
+import { useParams } from "react-router-dom";
 
-const ColumnsList = () => {
+const ColumnList = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const filter = useSelector(selectFilter);
-  const params = useParams();
+  const filter = useSelector(selectSearchTerm);
   const dispatch = useDispatch();
-  const { title, columns, background } = useSelector(selectedBoard);
-  const bgNumber = background;
+  const { title, columnList, background } = useSelector(selectCurrentBoard);
+  const backgroundList = [
+    "flowers",
+    "stars",
+    "tree",
+    "half-moon",
+    "leaves",
+    "cloud",
+    "coast",
+    "figure",
+    "full-moon",
+    "boat",
+    "hot-air-ballon",
+    "canyon",
+    "ocean",
+    "hot-air-ballons",
+    "northern-lights",
+  ];
+  const bgNumber = backgroundList.indexOf(background) + 1;
   const [isAddColumnOpen, setIsAddColumnOpen] = useState(false);
   const toggleAddColumn = () => {
     setIsAddColumnOpen(!isAddColumnOpen);
@@ -26,53 +46,70 @@ const ColumnsList = () => {
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
   };
-const isLoading = useSelector(selectIsBoardsLoading);
-  
-  useEffect(() => {
-    if (params.boardId) {
-      dispatch(fetchSingleBoard(params.boardId));
-    }
-  }, [dispatch, params.boardId]);
+  const status = useSelector(selectBoardStatus);
+  const params = useParams();
+  const { boardId } = params;
+  const [bgURL, setBgURL] = useState(null);
 
+  useEffect(() => {
+    if (boardId) {
+      dispatch(fetchBoard(boardId));
+    }
+  }, [dispatch, boardId]);
 
   const isRetina = () => {
     if (window.devicePixelRatio > 1) {
-      return '@2x';
+      return "@2x";
     } else {
-      return '';
+      return "";
     }
   };
   const setDevice = () => {
     if (window.innerWidth <= 375) {
-      return 'moblie';
+      return "moblie";
     }
     if (window.innerWidth <= 768) {
-      return 'tablet';
+      return "tablet";
     }
-    return 'desktop';
+    return "desktop";
   };
   const device = setDevice();
   const ratio = isRetina();
-  let bgurl;
-  if (bgNumber && bgNumber !== '0') {
-    bgurl = require(`../../assets/backgrounds/allBg/${device}_background_${
-      bgNumber + ratio
-    }.jpg`);
+
+  async function loadBackground() {
+    try {
+      const background = await import(
+        `../../assets/backgrounds/allBg/${device}_background_${
+          bgNumber + ratio
+        }.jpg`
+      );
+      setBgURL(background.default);
+    } catch (error) {
+      console.error("Failed to load background:", error);
+    }
   }
+
+  useEffect(() => {
+    if (bgNumber && bgNumber !== "0") {
+      loadBackground();
+    }
+  }, [bgNumber, device, ratio]);
+
   return (
-   <>{isLoading&&<BoardLoader/>}
+    <>
+      {status === "loading" && <BoardLoader />}
       <div
         className={css.task_list_container}
-        style={{ backgroundImage: `url(${bgurl})` }}
+        style={{ backgroundImage: `url(${bgURL})` }}
       >
         <div className={css.headerWrapper}>
           <h4 className={css.board_title}>{title}</h4>
           <OpenFiltersButton click={toggleFilter} />
         </div>
-        {columns && columns.length > 0 ? (
+        {columnList && columnList.length > 0 ? (
           <>
             <ul className={css.column_list}>
-              <FilteredColumns columns={columns} filter={filter} />
+              <FilteredColumns columns={columnList} filter={filter} />
               <li className={css.addColumnBtn}>
                 <AddColumnButton click={toggleAddColumn} />
               </li>
@@ -82,9 +119,7 @@ const isLoading = useSelector(selectIsBoardsLoading);
           <AddColumnButton click={toggleAddColumn} />
         )}
         {isAddColumnOpen && (
-          <Modal onClose={toggleAddColumn}>
-            <AddColumnModal onClose={toggleAddColumn} />
-          </Modal>
+          <ColumnModal boardId={boardId} close={toggleAddColumn} />
         )}
         {isFilterOpen && (
           <Modal onClose={toggleFilter}>
@@ -92,8 +127,8 @@ const isLoading = useSelector(selectIsBoardsLoading);
           </Modal>
         )}
       </div>
-   </>
+    </>
   );
 };
 
-export default ColumnsList;
+export default ColumnList;

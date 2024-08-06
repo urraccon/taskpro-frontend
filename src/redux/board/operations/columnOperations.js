@@ -53,7 +53,7 @@ export const removeColumn = createAsyncThunk(
   "columns/remove",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`/api/column/${id}`);
+      await axios.delete(`/api/columns/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(error.reponse.data);

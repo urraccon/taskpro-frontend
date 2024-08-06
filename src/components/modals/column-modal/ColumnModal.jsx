@@ -38,11 +38,11 @@ const ColumnModal = ({ id, boardId, close }) => {
   }, [id]);
 
   useEffect(() => {
-    if (column._id) {
+    if (column._id && id) {
       setTitle(column.title);
       setOpen(true);
     }
-  }, [column]);
+  }, [column, id]);
 
   const handleClose = () => {
     close();

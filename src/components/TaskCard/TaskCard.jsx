@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import sprite from '../../assets/svgSprite/iconsSprite.svg';
-
-// import { CardModal } from 'components/CardModal/CardModal/index';
-import Modal from '../Modal/Modal';
-import TooltipComp from './Tooltip/TooltipComp';
-
-import { deleteCard } from '../../redux/boards/operationsCards';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import sprite from "../../assets/svgSprite/iconsSprite.svg";
+import TooltipComp from "./Tooltip/TooltipComp";
 import {
   CardBottom,
   CardContentWrapper,
@@ -24,12 +18,14 @@ import {
   CardTitle,
   ColorTag,
   FullCardWrapper,
-} from './TaskCard.styled';
-import { getCurrentDate } from './services/getCurrentDate';
-import { formatDate } from './services/formatDate';
+} from "./TaskCard.styled";
+import { getCurrentDate } from "./services/getCurrentDate";
+import CardModal from "../modals/card-modal/CardModal";
+import { removeCard } from "../../redux/board/operations/cardOperations";
+import dayjs from "dayjs";
 
 const TaskCard = ({ cardData }) => {
-  const { title, description, label, deadline, _id } = cardData;
+  const { title, description, priority, deadline, _id } = cardData;
 
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -37,28 +33,27 @@ const TaskCard = ({ cardData }) => {
 
   /* -------------------- FORMATTING DEADLINE --------------------*/
 
-  const formattedDeadline = formatDate(deadline.split(',')[0]);
+  const formattedDeadline = dayjs(deadline).format("DD/MM/YYYY");
 
   /* -------------------- PICK A PRIORITY COLOR + RADIO NUMBER --------------------*/
 
-  let cardColor = '';
+  let cardColor = "";
 
-  switch (label) {
-    case 'low':
-      cardColor = '#8fa1d0';
+  switch (priority) {
+    case "low":
+      cardColor = "#8fa1d0";
       break;
-    case 'medium':
-      cardColor = '#e09cb5';
+    case "medium":
+      cardColor = "#e09cb5";
       break;
-    case 'high':
-      cardColor = '#bedbb0';
+    case "high":
+      cardColor = "#bedbb0";
       break;
 
     default:
-      cardColor = 'gray';
+      cardColor = "gray";
       break;
   }
-
 
   /* -------------------- CARD CONTROLS FUNCTIONS --------------------*/
 
@@ -66,7 +61,7 @@ const TaskCard = ({ cardData }) => {
     return setShowEditModal(!showEditModal);
   };
 
-  const removeCard = () => dispatch(deleteCard(_id));
+  const deleteCard = () => dispatch(removeCard(_id));
 
   /* -------------------- IS SHOW NOTIFICATION ICON --------------------*/
 
@@ -76,11 +71,10 @@ const TaskCard = ({ cardData }) => {
   const initValues = {
     title,
     description,
-    label,
+    priority,
     deadline,
     _id,
   };
-
 
   return (
     <FullCardWrapper>
@@ -95,7 +89,7 @@ const TaskCard = ({ cardData }) => {
           <CardInfoList>
             <CardInfoItem>
               <CardInfoHeader>Priority</CardInfoHeader>
-              <CardInfoValue>{label}</CardInfoValue>
+              <CardInfoValue>{priority}</CardInfoValue>
             </CardInfoItem>
             <CardInfoItem>
               <CardInfoHeader>Deadline</CardInfoHeader>
@@ -130,7 +124,7 @@ const TaskCard = ({ cardData }) => {
               </CardControlsButton>
             </li>
             <li>
-              <CardControlsButton onClick={removeCard}>
+              <CardControlsButton onClick={deleteCard}>
                 <CardControlsIcon width={16} height={16}>
                   <use xlinkHref={`${sprite}#icon-trash`} />
                 </CardControlsIcon>
@@ -139,15 +133,7 @@ const TaskCard = ({ cardData }) => {
           </CardControlsList>
         </CardBottom>
       </CardContentWrapper>
-      {showEditModal && (
-        <Modal onClose={toggleEditCardModal}>
-          <CardModal
-            initialValues={initValues}
-            newCard={false}
-            onClose={toggleEditCardModal}
-          />
-        </Modal>
-      )}
+      {showEditModal && <CardModal id={_id} close={toggleEditCardModal} />}
     </FullCardWrapper>
   );
 };

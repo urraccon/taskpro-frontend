@@ -1,34 +1,36 @@
-.add_card_btn{
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    width:335px ;
-    height: 56px;
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: -0.02em;
-    color: var(--add_card_btn_svg_bg);
-    cursor: pointer;
-    background-color: var(--accent);
-    border: none;
-    outline: none;
-    border-radius:8px ;
-    transition: background-color 250ms linear;
+.add_card_btn {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 335px;
+  height: 56px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--add_card_btn_svg_bg);
+  cursor: pointer;
+  background-color: var(--accent);
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  transition: background-color 250ms linear;
 }
-.add_card_btn:hover{
-    background-color:var(--accent_hover)
+.add_card_btn:hover {
+  background-color: var(--accent_hover);
 }
-.svg_wrapper{
-    padding: 7px;
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: var(--add_card_btn_svg_bg);
+.svg_wrapper {
+  padding: 7px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: var(--add_card_btn_svg_bg);
 }
-.btn_plus_icon{
-    stroke:var(--add_card_btn_svg);
+.btn_plus_icon {
+  color: var(--add_card_btn_svg);
 }
-@media screen and (max-width:375px) {
-.add_card_btn{width: 100%;}
+@media screen and (max-width: 375px) {
+  .add_card_btn {
+    width: 100%;
+  }
 }

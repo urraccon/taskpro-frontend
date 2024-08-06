@@ -43,7 +43,7 @@ const CardModal = ({ id, columnId, close }) => {
   }, [id]);
 
   useEffect(() => {
-    if (card._id) {
+    if (card._id && id) {
       setTitle(card.title);
       setDescription(card.description);
       setPriority(card.priority);
@@ -51,7 +51,7 @@ const CardModal = ({ id, columnId, close }) => {
       setDeadline(parsedDeadline);
       setOpen(true);
     }
-  }, [card]);
+  }, [card, id]);
 
   const handleClose = () => {
     close();

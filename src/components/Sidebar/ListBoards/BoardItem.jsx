@@ -10,10 +10,7 @@ import {
 } from "./ListBoards.styled";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  fetchBoard,
-  removeBoard,
-} from "../../../redux/board/operations/boardOperations";
+import { removeBoard } from "../../../redux/board/operations/boardOperations";
 import BoardModal from "../../modals/board-modal/BoardModal";
 
 const BoardItem = ({ isActive, title, icon, id }) => {
@@ -42,13 +39,9 @@ const BoardItem = ({ isActive, title, icon, id }) => {
     }
   }, [click, navigate]);
 
-  const handleClick = () => {
-    dispatch(fetchBoard(id));
-  };
-
   return (
     <>
-      <Link to={`/home/${id}`} onClick={handleClick}>
+      <Link to={`/home/${id}`}>
         <BoardWrapper $isActive={isActive}>
           <TitleWrapper $isActive={isActive}>
             <BoardIcon $isActive={isActive}>
