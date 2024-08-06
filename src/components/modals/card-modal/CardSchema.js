@@ -10,7 +10,7 @@ const CardSchema = Yup.object().shape({
     .required("Title is required"),
   description: Yup.string().min(5, "Too short.").max(250, "Too long."),
   priority: Yup.string().oneOf(
-    ["no-priority", "low", "mwdium", "high"],
+    ["no-priority", "low", "medium", "high"],
     ({ value, values }) => `Invalid option ${value}. Valid options: ${values}`
   ),
   deadline: Yup.date().min(today, "The deadline cannot be in the past"),
