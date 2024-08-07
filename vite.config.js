@@ -6,7 +6,7 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
   plugins: [react(), svgr()],
 
-  base: "/TaskPro/",
+  base: "/taskpro-frontend",
 
   build: {
     outDir: "dist",
